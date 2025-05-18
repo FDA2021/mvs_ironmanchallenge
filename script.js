@@ -45,7 +45,8 @@ function updateProgressTracker() {
 }
 
 // Retrieve selected characters from localStorage (or an empty array if none)
-let selectedCharacters = JSON.parse(localStorage.getItem('selectedCharacters')) || [];
+let savedSelection = JSON.parse(localStorage.getItem('selectedCharacters'));
+let selectedCharacters = savedSelection !== null ? savedSelection : characters.map(c => c.name);
 updateProgressTracker();
 
 
