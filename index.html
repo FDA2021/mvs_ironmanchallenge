@@ -3,34 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MultiVersus Ironman Challenge</title>
+    <title>MultiVersus Random Character Generator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>MultiVersus Ironman Challenge</h1>
-        <p>Click to pick a random character for your next challenge!</p>
-    </header>
-    <main>
-        <div id="character-display">
-            <img id="character-image" src="" alt="Character Image">
-            <h2 id="character-name">Character Name</h2>
-            <p id="character-description">Description of character abilities...</p>
-        </div>
-        <button id="generate-button">Generate Random Character</button>
-    </main>
-    
-    <section id="character-gallery">
-        <h2>All Characters</h2>
-        <div id="gallery-container">
-            <!-- Character images will be dynamically added here -->
-        </div>
-    </section>
-
-    <footer>
+    <div class="container">
+        <h1>MultiVersus Random Character Generator</h1>
         <p>Created by [Your Name]</p>
-    </footer>
-
+        <div class="button-container">
+            <button id="generate-btn" class="button">Generate Random Character</button>
+            <button id="reset-btn" class="button">Reset All Characters</button>
+        </div>
+        <div class="character-container"></div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
