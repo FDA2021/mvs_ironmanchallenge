@@ -1,3 +1,4 @@
+// Character data array, including the new characters added in re-release
 const characters = [
     {
         name: "Batman",
@@ -104,7 +105,6 @@ const characters = [
         image: "https://static.wikia.nocookie.net/multiversus/images/2/2d/Black_Adam_icon.png/revision/latest/scale-to-width-down/350?cb=20220924174933",
         description: "Black Adam is a powerhouse with devastating electrical attacks.",
     },
-
     // **New characters added in re-release**
     {
         name: "Betelgeuse",
@@ -154,67 +154,84 @@ const characters = [
     {
         name: "The Joker",
         image: "https://static.wikia.nocookie.net/multiversus/images/6/60/Joker_icon.png/revision/latest/scale-to-width-down/350?cb=202309150924",
-        description: "The Joker is a master of chaos, wielding deadly tricks and laughter.",
+        description: "The Joker is a master of chaos, using gadgets and mind games to defeat enemies.",
     },
     {
         name: "Aquaman",
-        image: "https://static.wikia.nocookie.net/multiversus/images/4/49/Aquaman_icon.png/revision/latest/scale-to-width-down/350?cb=202309150925",
-        description: "Aquaman commands the sea and uses his trident to control the battlefield.",
+        image: "https://static.wikia.nocookie.net/multiversus/images/8/8e/Aquaman_icon.png/revision/latest/scale-to-width-down/350?cb=202309150925",
+        description: "Aquaman is a mighty warrior with control over the sea and its creatures.",
     },
     {
         name: "Jason Voorhees",
-        image: "https://static.wikia.nocookie.net/multiversus/images/d/d9/Jason_Voorhees_icon.png/revision/latest/scale-to-width-down/350?cb=202309150926",
-        description: "Jason Voorhees is a terrifying force of nature with relentless attacks.",
+        image: "https://static.wikia.nocookie.net/multiversus/images/9/90/Jason_Voorhees_icon.png/revision/latest/scale-to-width-down/350?cb=202309150926",
+        description: "Jason Voorhees is a terrifying force with unstoppable strength.",
     },
 ];
 
+// Function to render characters on the page
+function renderCharacters() {
+    const characterContainer = document.querySelector(".character-container");
+    characterContainer.innerHTML = "";
 
-let chosenCharacters = [];
-
-document.getElementById("generate-button").addEventListener("click", function() {
-    // Pick a random character from the array that hasn't been chosen yet
-    let unchosenCharacters = characters.filter(character => !chosenCharacters.includes(character));
-    
-    if (unchosenCharacters.length === 0) {
-        alert("All characters have been used!");
-        return;
-    }
-
-    const randomCharacter = unchosenCharacters[Math.floor(Math.random() * unchosenCharacters.length)];
-    
-    // Mark character as chosen
-    chosenCharacters.push(randomCharacter);
-
-    // Update the UI with the selected character
-    document.getElementById("character-name").textContent = randomCharacter.name;
-    document.getElementById("character-description").textContent = randomCharacter.description;
-    document.getElementById("character-image").src = randomCharacter.image;
-
-    updateCharacterGallery();
-});
-
-function updateCharacterGallery() {
-    const galleryContainer = document.getElementById("gallery-container");
-    galleryContainer.innerHTML = "";  // Clear current gallery
-
-    characters.forEach(character => {
+    characters.forEach((character, index) => {
         const characterDiv = document.createElement("div");
-        characterDiv.classList.add("character-item");
+        characterDiv.classList.add("character");
+        characterDiv.classList.add("unclicked"); // Add default unclicked state
         
-        if (chosenCharacters.includes(character)) {
-            characterDiv.classList.add("chosen");
-        } else {
-            characterDiv.classList.add("unchosen");
-        }
+        // Create image element
+        const characterImage = document.createElement("img");
+        characterImage.src = character.image;
+        characterImage.alt = character.name;
+        characterDiv.appendChild(characterImage);
 
-        const img = document.createElement("img");
-        img.src = character.image;
-        img.alt = character.name;
+        // Add name label
+        const characterName = document.createElement("p");
+        characterName.textContent = character.name;
+        characterDiv.appendChild(characterName);
 
-        characterDiv.appendChild(img);
-        galleryContainer.appendChild(characterDiv);
+        // Add click event listener to choose character
+        characterDiv.addEventListener("click", () => {
+            if (characterDiv.classList.contains("unclicked")) {
+                characterDiv.classList.remove("unclicked");
+                characterDiv.classList.add("clicked");
+                characterDiv.style.filter = "grayscale(100%)"; // Apply greyed-out effect
+            } else {
+                characterDiv.classList.remove("clicked");
+                characterDiv.classList.add("unclicked");
+                characterDiv.style.filter = "none"; // Reset filter
+            }
+        });
+
+        characterContainer.appendChild(characterDiv);
     });
 }
 
-// Initial gallery load
-updateCharacterGallery();
+// Generate random character button logic
+document.getElementById("generate-btn").addEventListener("click", function () {
+    const unchosenCharacters = characters.filter((character, index) => {
+        return !document.querySelectorAll(".character")[index].classList.contains("clicked");
+    });
+
+    if (unchosenCharacters.length > 0) {
+        const randomIndex = Math.floor(Math.random() * unchosenCharacters.length);
+        const randomCharacter = unchosenCharacters[randomIndex];
+
+        alert("Your random character is: " + randomCharacter.name);
+    } else {
+        alert("Please reset all characters before generating a new one.");
+    }
+});
+
+// Reset all characters button logic
+document.getElementById("reset-btn").addEventListener("click", function () {
+    // Reset the character array to be unclicked and remove grey-out
+    const allCharacterDivs = document.querySelectorAll(".character");
+    allCharacterDivs.forEach(characterDiv => {
+        characterDiv.classList.remove("clicked");
+        characterDiv.classList.add("unclicked");
+        characterDiv.style.filter = "none"; // Reset any styling (e.g., grayscale)
+    });
+});
+
+// Initial render of characters
+renderCharacters();
