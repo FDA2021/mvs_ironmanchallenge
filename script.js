@@ -103,7 +103,69 @@ const characters = [
         name: "Black Adam",
         image: "https://static.wikia.nocookie.net/multiversus/images/2/2d/Black_Adam_icon.png/revision/latest/scale-to-width-down/350?cb=20220924174933",
         description: "Black Adam is a powerhouse with devastating electrical attacks.",
-    }
+    },
+
+    // **New characters added in re-release**
+    {
+        name: "Betelgeuse",
+        image: "https://static.wikia.nocookie.net/multiversus/images/2/2c/Betelgeuse_icon.png/revision/latest/scale-to-width-down/350?cb=202309150915",
+        description: "Betelgeuse brings chaos and mischief with his unpredictable powers.",
+    },
+    {
+        name: "Nubia",
+        image: "https://static.wikia.nocookie.net/multiversus/images/a/a4/Nubia_icon.png/revision/latest/scale-to-width-down/350?cb=202309150916",
+        description: "Nubia, a fierce Amazonian warrior, fights with power and precision.",
+    },
+    {
+        name: "The Powerpuff Girls",
+        image: "https://static.wikia.nocookie.net/multiversus/images/4/49/Powerpuff_Girls_icon.png/revision/latest/scale-to-width-down/350?cb=202309150917",
+        description: "The Powerpuff Girls combine their powers for explosive teamwork.",
+    },
+    {
+        name: "Agent Smith",
+        image: "https://static.wikia.nocookie.net/multiversus/images/a/a7/Agent_Smith_icon.png/revision/latest/scale-to-width-down/350?cb=202309150918",
+        description: "Agent Smith uses his martial arts and control over the Matrix to defeat enemies.",
+    },
+    {
+        name: "Banana Guard",
+        image: "https://static.wikia.nocookie.net/multiversus/images/f/f7/Banana_Guard_icon.png/revision/latest/scale-to-width-down/350?cb=202309150919",
+        description: "Banana Guard is a loyal and tough protector, equipped with humor and strength.",
+    },
+    {
+        name: "Lola Bunny",
+        image: "https://static.wikia.nocookie.net/multiversus/images/7/7a/Lola_Bunny_icon.png/revision/latest/scale-to-width-down/350?cb=202309150920",
+        description: "Lola Bunny is fast and agile, with a fiery competitive spirit.",
+    },
+    {
+        name: "Marceline the Vampire Queen",
+        image: "https://static.wikia.nocookie.net/multiversus/images/9/92/Marceline_icon.png/revision/latest/scale-to-width-down/350?cb=202309150921",
+        description: "Marceline uses her vampire abilities and her bass guitar to battle.",
+    },
+    {
+        name: "Samurai Jack",
+        image: "https://static.wikia.nocookie.net/multiversus/images/5/58/Samurai_Jack_icon.png/revision/latest/scale-to-width-down/350?cb=202309150922",
+        description: "Samurai Jack is a disciplined and powerful warrior, skilled in swordsmanship.",
+    },
+    {
+        name: "Raven",
+        image: "https://static.wikia.nocookie.net/multiversus/images/a/aa/Raven_icon.png/revision/latest/scale-to-width-down/350?cb=202309150923",
+        description: "Raven uses her dark magic and psychic powers to control her enemies.",
+    },
+    {
+        name: "The Joker",
+        image: "https://static.wikia.nocookie.net/multiversus/images/6/60/Joker_icon.png/revision/latest/scale-to-width-down/350?cb=202309150924",
+        description: "The Joker is a master of chaos, wielding deadly tricks and laughter.",
+    },
+    {
+        name: "Aquaman",
+        image: "https://static.wikia.nocookie.net/multiversus/images/4/49/Aquaman_icon.png/revision/latest/scale-to-width-down/350?cb=202309150925",
+        description: "Aquaman commands the sea and uses his trident to control the battlefield.",
+    },
+    {
+        name: "Jason Voorhees",
+        image: "https://static.wikia.nocookie.net/multiversus/images/d/d9/Jason_Voorhees_icon.png/revision/latest/scale-to-width-down/350?cb=202309150926",
+        description: "Jason Voorhees is a terrifying force of nature with relentless attacks.",
+    },
 ];
 
 
