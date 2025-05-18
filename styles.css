@@ -230,3 +230,70 @@ footer p {
     margin-left: 10px;
 }
 
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    body {
+        padding: 20px;
+        height: auto; /* Remove forced 100vh height on small screens */
+    }
+
+    #character-display {
+        width: 90%; /* Expand card for smaller screens */
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .button {
+        width: 100%;
+        padding: 12px;
+    }
+
+    #character-gallery {
+        margin-top: 30px;
+        padding: 0 10px;
+    }
+
+    #gallery-container {
+        gap: 15px;
+    }
+
+    .character {
+        width: 90px; /* Reduce size of characters for smaller screens */
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    #character-name {
+        font-size: 1.2rem;
+    }
+
+    #character-description {
+        font-size: 0.9rem;
+    }
+
+    footer {
+        position: static;
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .character {
+        width: 70px;
+    }
+
+    .character h3 {
+        font-size: 6px;
+    }
+}
+
+
