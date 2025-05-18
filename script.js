@@ -140,11 +140,24 @@ function renderCharacterGallery() {
 
 
 document.getElementById("reset-btn").addEventListener("click", function () {
-    selectedCharacters = characters.map(c => c.name); // Select all characters by their names
+    selectedCharacters = characters.map(c => c.name); // Select all characters
     localStorage.setItem('selectedCharacters', JSON.stringify(selectedCharacters)); // Save to localStorage
-    renderCharacterGallery(); // Re-render the gallery with updated state
-    updateProgressTracker();   // Update the progress tracker after reset
+    renderCharacterGallery(); // Re-render the gallery
+    updateProgressTracker();  // Update tracker
+
+    const characterNameEl = document.getElementById("character-name");
+    const characterDescriptionEl = document.getElementById("character-description");
+    const characterImageEl = document.getElementById("character-image");
+
+    // If previously completed the challenge, reset UI to "Choose your fighter"
+    const completed = characters.length - selectedCharacters.length;
+    if (completed === 0) {
+        characterNameEl.innerText = "Choose your fighter";
+        characterDescriptionEl.innerText = "";
+        characterImageEl.style.display = "none";
+    }
 });
+
 
 
 // Initialize the page on load
