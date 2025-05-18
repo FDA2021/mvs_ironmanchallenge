@@ -1,0 +1,226 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #1a1a1a; /* Dark background for contrast */
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    text-align: center;
+}
+
+/* Header */
+header {
+    margin-bottom: 40px;
+    color: #f5f5f5;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: #ffcc00;
+    text-transform: uppercase;
+}
+
+p {
+    font-size: 1.2rem;
+    color: #f5f5f5;
+}
+
+/* Main Section */
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#character-display {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 15px;
+    width: 300px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+#character-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+#character-image:hover {
+    transform: scale(1.05);
+}
+
+#character-name {
+    font-size: 1.5rem;
+    margin-top: 15px;
+    color: #ffcc00;
+}
+
+#character-description {
+    font-size: 1rem;
+    color: #ddd;
+    margin-top: 10px;
+    line-height: 1.4;
+}
+
+/* Buttons */
+.button-container {
+    display: flex;
+    gap: 20px;
+}
+
+.button {
+    background-color: #ffcc00;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button:hover {
+    background-color: #e6b800;
+    transform: scale(1.05);
+}
+
+.button:focus {
+    outline: none;
+}
+
+/* Character Gallery Section */
+#character-gallery {
+    margin-top: 50px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+#gallery-container {
+    display: flex;                    /* Enable flexbox */
+    flex-wrap: wrap;                  /* Allow items to wrap to the next line */
+    justify-content: center;          /* Center the items horizontally */
+    gap: 20px;                        /* Space between the items */
+    max-width: 90%;                   /* Limit max width */
+    margin: 0 auto;                   /* Center the gallery container itself */
+}
+
+.character {
+    position: relative;
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    width: 120px;                     /* Fixed width for the character items */
+    text-align: center;               /* Center the text inside each item */
+}
+
+.character img {
+    width: 100%;
+    max-width: 250px; /* Adjust based on your layout */
+    height: auto;
+    border-radius: 8px; /* Optional: rounded corners */
+    transition: transform 0.3s ease, filter 0.3s ease; /* Smooth scaling and grayscale transition */
+    filter: none; /* Remove grayscale by default */
+}
+
+/* Character Name Overlay */
+.character h3 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    text-align: center;
+    line-height: 1.2;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 30%; /* Set overlay height to 35% */
+    font-weight: bold;
+    text-overflow: ellipsis;
+    margin: 0;
+    word-wrap: break-word; /* Ensure long words wrap properly */
+    font-size: 11px; /* Default font size */
+}
+
+/* Responsive font size adjustments */
+@media (max-width: 1200px) {
+    .character h3 {
+        font-size: 9px; /* Adjust font size for larger screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .character h3 {
+        font-size: 8px; /* Adjust font size for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .character h3 {
+        font-size: 7px; /* Adjust font size for mobile screens */
+    }
+}
+
+/* Character hover effect */
+.character.unclicked img {
+    opacity: 0.6;
+    filter: grayscale(100%); /* Apply grayscale when unclicked */
+}
+
+.character:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Glow effect (no grayscale) when clicked */
+.character.clicked {
+    box-shadow: 0 6px 15px rgba(255, 204, 0, 0.8); /* Glow effect */
+    filter: none; /* No grayscale when glowing */
+    transition: all 0.3s ease; /* Smooth transition for both glow and grayscale */
+}
+
+/* Transition to grayscale when not glowing */
+.character:not(.clicked) img {
+    filter: grayscale(100%); /* Grayscale when not glowing */
+    transition: filter 0.3s ease; /* Smooth transition to grayscale */
+}
+
+/* Hover effect for unclicked (maintain grayscale) */
+.character.unclicked:hover img {
+    opacity: 1;
+    filter: grayscale(100%); /* Keep grayscale on hover */
+}
+
+/* Footer */
+footer {
+    margin-top: 50px;
+    font-size: 1rem;
+    color: #ddd;
+    position: absolute;
+    bottom: 20px;
+}
+
+footer p {
+    text-align: center;
+}
