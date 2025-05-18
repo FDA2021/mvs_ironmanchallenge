@@ -224,6 +224,17 @@ footer {
 footer p {
     text-align: center;
 }
+
+/* Footer link styling to match yellow text */
+footer a {
+    color: #ffcc00;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
 #progress-tracker {
     font-size: 1rem;
     color: #aaa;
@@ -286,6 +297,7 @@ footer p {
     }
 }
 
+
 @media (max-width: 480px) {
     .character {
         width: 70px;
@@ -295,5 +307,4 @@ footer p {
         font-size: 6px;
     }
 }
-
 
