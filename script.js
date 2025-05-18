@@ -1,6 +1,6 @@
-// Character data array
 const characters = [
     { name: "Agent Smith", image: "images/Agent-smith-lg.png", description: "Agent Smith is a formidable agent of the Matrix, capable of manipulating the digital world." },
+    { name: "Aquaman", image: "images/Aquaman2DRender.png", description: "Aquaman rules the seas and commands aquatic creatures with his trident." },
     { name: "Arya Stark", image: "images/Arya_Stark_Portrait.png.png", description: "Arya Stark uses her agility and speed to defeat her enemies." },
     { name: "Batman", image: "images/Batman_Portrait_Full.png", description: "Batman is a skilled fighter with gadgets and stealth." },
     { name: "Banana Guard", image: "images/Banana-guard.png", description: "Banana Guard is a goofy yet tough character who will defend with all his might." },
@@ -14,6 +14,8 @@ const characters = [
     { name: "Iron Giant", image: "images/RosterArt_IronGiant_Skin_Hero.png", description: "The Iron Giant is a massive tank with powerful attacks and defense." },
     { name: "Jake the Dog", image: "images/Jake_the_Dog_Portrait_Full.png", description: "Jake is a shapeshifting dog who can stretch and bend to his advantage." },
     { name: "Jason Voorhees", image: "images/Jason_Voorhees_Multiversus.png", description: "Jason Voorhees brings terror with his brutal attacks and relentless pursuit." },
+    { name: "Lola Bunny", image: "images/Lola_multiver.png", description: "Lola Bunny is quick and skilled, combining agility with precision." },
+    { name: "Marceline the Vampire Queen", image: "images/Marceline2DRender.png", description: "Marceline uses her vampire powers and musical skills to overwhelm foes." },
     { name: "The Joker", image: "images/The_Joker_MV.png", description: "The Joker is chaotic, unpredictable, and always ready with a laugh." },
     { name: "LeBron James", image: "images/LeBron_Full_Portrait.png", description: "LeBron James is a versatile fighter with basketball-themed abilities." },
     { name: "Marvin the Martian", image: "images/Marvin.png", description: "Marvin uses his advanced technology to control the battlefield." },
@@ -34,8 +36,18 @@ const characters = [
     { name: "Wonder Woman", image: "images/Wonder_Woman_Portrait_Full.png", description: "Wonder Woman is a balanced fighter with powerful combat skills." },
 ];
 
+function updateProgressTracker() {
+    const progressTracker = document.getElementById("progress-tracker");
+    if (progressTracker) {
+        const completed = characters.length - selectedCharacters.length;
+        progressTracker.innerText = `(${completed} / ${characters.length} Completed)`;
+    }
+}
+
 // Retrieve selected characters from localStorage (or an empty array if none)
 let selectedCharacters = JSON.parse(localStorage.getItem('selectedCharacters')) || [];
+updateProgressTracker();
+
 
 // Function to generate a random character
 function generateRandomCharacter() {
@@ -58,6 +70,14 @@ function generateRandomCharacter() {
     selectedCharacters = selectedCharacters.filter(name => name !== randomCharacter.name);
     localStorage.setItem('selectedCharacters', JSON.stringify(selectedCharacters)); // Save the updated state to localStorage
     renderCharacterGallery(); // Re-render the gallery to reflect the new state
+    updateProgressTracker();
+
+}
+
+function updateProgressTracker() {
+    const progressTracker = document.getElementById("progress-tracker");
+    const completed = characters.length - selectedCharacters.length;
+    progressTracker.innerText = `(${completed} / ${characters.length} Completed)`;
 }
 
 // Render the character gallery
@@ -82,21 +102,21 @@ function renderCharacterGallery() {
         `;
         galleryContainer.appendChild(characterDiv);
 
+
         // Toggle selection on click
         characterDiv.addEventListener("click", function () {
-            if (characterDiv.classList.contains("clicked")) {
-                characterDiv.classList.remove("clicked");
-                // Deselect character
-                selectedCharacters = selectedCharacters.filter(name => name !== character.name);
-            } else {
-                characterDiv.classList.add("clicked");
-                // Select character
-                selectedCharacters.push(character.name);
-            }
+    if (characterDiv.classList.contains("clicked")) {
+        characterDiv.classList.remove("clicked");
+        selectedCharacters = selectedCharacters.filter(name => name !== character.name);
+    } else {
+        characterDiv.classList.add("clicked");
+        selectedCharacters.push(character.name);
+    }
 
-            // Save updated selected characters in localStorage
-            localStorage.setItem('selectedCharacters', JSON.stringify(selectedCharacters));
-        });
+    localStorage.setItem('selectedCharacters', JSON.stringify(selectedCharacters));
+    updateProgressTracker(); // Update only the tracker, not the entire gallery
+});
+
 
         // Check if the gallery has visible characters
         if (selectedCharacters.includes(character.name)) {
@@ -110,7 +130,7 @@ function renderCharacterGallery() {
     const characterImageElement = document.getElementById("character-image");
 
     if (selectedCharacters.length === 0 || !hasVisibleCharacters) {
-        characterNameElement.innerText = "COMPLETE";
+        characterNameElement.innerText = "Challenge Completed!";
         characterDescriptionElement.innerText = "Reset your characters to try again!";
         characterImageElement.style.display = "none"; // Hide the image if no fighter is selected
     } else {
@@ -118,15 +138,122 @@ function renderCharacterGallery() {
     }
 }
 
-// Reset all character selections (select all characters and save state)
+
 document.getElementById("reset-btn").addEventListener("click", function () {
     selectedCharacters = characters.map(c => c.name); // Select all characters by their names
     localStorage.setItem('selectedCharacters', JSON.stringify(selectedCharacters)); // Save to localStorage
     renderCharacterGallery(); // Re-render the gallery with updated state
+    updateProgressTracker();   // Update the progress tracker after reset
 });
+
 
 // Initialize the page on load
 document.addEventListener("DOMContentLoaded", function () {
     renderCharacterGallery();
     document.getElementById("generate-btn").addEventListener("click", generateRandomCharacter);
 });
+// Update the progress tracker
+const progressTracker = document.getElementById("progress-tracker");
+if (progressTracker) {
+    const completed = characters.length - selectedCharacters.length;
+    progressTracker.innerText = `(${completed} / ${characters.length} Completed)`;
+}
+
+
+// Confetti animation function
+function playConfetti() {
+    const duration = 3000; // 3 seconds
+    const end = Date.now() + duration;
+
+    const colors = ['#FFC700', '#FF0000', '#2E3192', '#41BBC7', '#ffffff'];
+
+    // Create canvas and add to body
+    const canvas = document.createElement('canvas');
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    canvas.style.pointerEvents = 'none';
+    canvas.style.zIndex = '9999';
+    document.body.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+    let W = window.innerWidth;
+    let H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+
+    window.addEventListener('resize', () => {
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.width = W;
+        canvas.height = H;
+    });
+
+    // Confetti particle constructor
+    function ConfettiParticle() {
+        this.x = Math.random() * W;
+        this.y = Math.random() * H - H;
+        this.r = (Math.random() * 6) + 4;
+        this.d = (Math.random() * duration) + 10;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.tilt = Math.floor(Math.random() * 10) - 10;
+        this.tiltAngleIncremental = (Math.random() * 0.07) + 0.05;
+        this.tiltAngle = 0;
+
+        this.draw = function() {
+            ctx.beginPath();
+            ctx.lineWidth = this.r / 2;
+            ctx.strokeStyle = this.color;
+            ctx.moveTo(this.x + this.tilt + (this.r / 4), this.y);
+            ctx.lineTo(this.x + this.tilt, this.y + this.tilt + (this.r / 4));
+            ctx.stroke();
+        }
+    }
+
+    // Create confetti particles
+    const confettiParticles = [];
+    const maxConfetti = 150;
+    for(let i = 0; i < maxConfetti; i++) {
+        confettiParticles.push(new ConfettiParticle());
+    }
+
+    // Animation loop
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+        confettiParticles.forEach(p => {
+            p.tiltAngle += p.tiltAngleIncremental;
+            p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+            p.x += Math.sin(p.d);
+            p.tilt = Math.sin(p.tiltAngle) * 15;
+            p.draw();
+
+            // Reset particle to top if it goes out of screen
+            if (p.y > H) {
+                p.x = Math.random() * W;
+                p.y = -10;
+                p.tilt = Math.floor(Math.random() * 10) - 10;
+            }
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(draw);
+        } else {
+            // Remove canvas after animation
+            document.body.removeChild(canvas);
+        }
+    }
+
+    draw();
+}
+
+// Modify updateProgressTracker to trigger confetti on completion
+const originalUpdateProgressTracker = updateProgressTracker;
+updateProgressTracker = function() {
+    originalUpdateProgressTracker();
+    const completed = characters.length - selectedCharacters.length;
+    if (completed === characters.length) {
+        playConfetti();
+    }
+};
