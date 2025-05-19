@@ -153,16 +153,30 @@ function renderCharacterGallery() {
 
 
 document.getElementById("reset-btn").addEventListener("click", function () {
-    selectedCharacters = characters.map(c => c.name); // Select all characters
-    localStorage.setItem('selectedCharacters', JSON.stringify(selectedCharacters)); // Save to localStorage
-    renderCharacterGallery(); // Re-render the gallery
-    updateProgressTracker();  // Update tracker
+    if (isRoster2) {
+        // If Roster 2 is active, reset selectedCharacters to Roster 2 (excluding those characters)
+        const excluded = [
+            "Agent Smith", "Aquaman", "Banana Guard", "Betelgeuse",
+            "Jason Voorhees", "Lola Bunny", "Marceline the Vampire Queen",
+            "The Joker", "Nubia", "Powerpuff Girls", "Raven", "Samurai Jack"
+        ];
+        selectedCharacters = characters
+            .map(c => c.name)
+            .filter(name => !excluded.includes(name));
+    } else {
+        // If Roster 1 is active, reset to full roster
+        selectedCharacters = characters.map(c => c.name);
+    }
 
+    localStorage.setItem('selectedCharacters', JSON.stringify(selectedCharacters));
+    renderCharacterGallery();
+    updateProgressTracker();
+
+    // Reset UI text & image if needed
     const characterNameEl = document.getElementById("character-name");
     const characterDescriptionEl = document.getElementById("character-description");
     const characterImageEl = document.getElementById("character-image");
 
-    // If previously completed the challenge, reset UI to "Choose your fighter"
     const completed = characters.length - selectedCharacters.length;
     if (completed === 0) {
         characterNameEl.innerText = "Choose your fighter";
@@ -170,6 +184,7 @@ document.getElementById("reset-btn").addEventListener("click", function () {
         characterImageEl.style.display = "none";
     }
 });
+
 
 
 
