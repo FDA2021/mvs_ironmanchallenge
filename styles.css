@@ -83,6 +83,9 @@ main {
     display: flex;
     gap: 20px;
 }
+.hidden-excluded {
+  display: none !important;
+}
 
 .button {
     background-color: #ffcc00;
@@ -233,6 +236,14 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
+}
+footer-credit {
+  margin-top: 20px; /* space above */
+  margin-bottom: 10px; /* space below */
+  display: block;
+  text-align: center; /* center it horizontally */
+  font-size: 14px;
+  color: #666;
 }
 
 #progress-tracker {
