@@ -36,12 +36,21 @@ const characters = [
     { name: "Wonder Woman", image: "images/Wonder_Woman_Portrait_Full.png", description: "Wonder Woman is a balanced fighter with powerful combat skills." },
 ];
 
+let activeCharacters = characters; // default to full roster
+
+const excludedForRoster2 = [
+    "Agent Smith", "Aquaman", "Banana Guard", "Betelgeuse",
+    "Jason Voorhees", "Lola Bunny", "Marceline the Vampire Queen",
+    "The Joker", "Nubia", "Powerpuff Girls", "Raven", "Samurai Jack"
+];
+
+
 function updateProgressTracker() {
     const progressTracker = document.getElementById("progress-tracker");
-    if (progressTracker) {
-        const completed = characters.length - selectedCharacters.length;
-        progressTracker.innerText = `(${completed} / ${characters.length} Completed)`;
-    }
+    if (!progressTracker) return;
+
+    const completed = activeCharacters.length - selectedCharacters.length;
+    progressTracker.innerText = `(${completed} / ${activeCharacters.length} Completed)`;
 }
 
 // Retrieve selected characters from localStorage (or an empty array if none)
@@ -77,9 +86,12 @@ function generateRandomCharacter() {
 
 function updateProgressTracker() {
     const progressTracker = document.getElementById("progress-tracker");
-    const completed = characters.length - selectedCharacters.length;
-    progressTracker.innerText = `(${completed} / ${characters.length} Completed)`;
+    if (!progressTracker) return;
+
+    const completed = activeCharacters.length - selectedCharacters.length;
+    progressTracker.innerText = `(${completed} / ${activeCharacters.length} Completed)`;
 }
+
 
 // Render the character gallery
 function renderCharacterGallery() {
@@ -88,7 +100,7 @@ function renderCharacterGallery() {
 
     let hasVisibleCharacters = false;
 
-    characters.forEach((character) => {
+    activeCharacters.forEach((character) => {
         const characterDiv = document.createElement("div");
         characterDiv.classList.add("character");
 
@@ -163,15 +175,59 @@ document.getElementById("reset-btn").addEventListener("click", function () {
 
 // Initialize the page on load
 document.addEventListener("DOMContentLoaded", function () {
+    // On load, check localStorage and set activeCharacters accordingly
+
+    if (savedSelection !== null) {
+        // Filter activeCharacters to only those in savedSelection
+        activeCharacters = characters.filter(c => savedSelection.includes(c.name));
+        selectedCharacters = savedSelection;
+    } else {
+        // Default full roster
+        activeCharacters = characters;
+        selectedCharacters = activeCharacters.map(c => c.name);
+    }
+
     renderCharacterGallery();
+    updateProgressTracker();
+
     document.getElementById("generate-btn").addEventListener("click", generateRandomCharacter);
 });
+
 // Update the progress tracker
 const progressTracker = document.getElementById("progress-tracker");
 if (progressTracker) {
     const completed = characters.length - selectedCharacters.length;
     progressTracker.innerText = `(${completed} / ${characters.length} Completed)`;
 }
+document.getElementById("roster2-btn").addEventListener("click", function () {
+    isRoster2 = true;
+
+    // Filter activeCharacters to exclude these names
+    activeCharacters = characters.filter(c => !excludedForRoster2.includes(c.name));
+
+    // selectedCharacters should be all names from activeCharacters (initially all selected)
+    selectedCharacters = activeCharacters.map(c => c.name);
+
+    localStorage.setItem('selectedCharacters', JSON.stringify(selectedCharacters));
+
+    renderCharacterGallery();
+    updateProgressTracker();
+});
+
+
+document.getElementById("roster1-btn").addEventListener("click", function () {
+    isRoster2 = false;
+
+    activeCharacters = characters;  // full roster
+    selectedCharacters = activeCharacters.map(c => c.name);
+
+    localStorage.setItem('selectedCharacters', JSON.stringify(selectedCharacters));
+
+    renderCharacterGallery();
+    updateProgressTracker();
+});
+
+
 
 
 // Confetti animation function
@@ -271,3 +327,4 @@ updateProgressTracker = function() {
         playConfetti();
     }
 };
+
